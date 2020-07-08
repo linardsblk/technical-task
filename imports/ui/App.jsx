@@ -1,13 +1,46 @@
 import React from 'react';
-import Hello from './Hello.jsx';
-import Info from './Info.jsx';
+import { withTracker } from 'meteor/react-meteor-data'
 
-const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
-  </div>
-);
+import UserInfo from './UserInfo';
+import LoginForm from './LoginForm';
+import ActiveEmergency from './ActiveEmergency';
 
-export default App;
+import Emergencies from '../api/emergencies';
+
+function App(props) {
+
+  const isLoggedIn = !!props.currentUser;
+
+  const newEmergency = () => {
+    Meteor.call('emergencies.insert', "test");
+  }
+
+  if (isLoggedIn) {
+    return (
+      <div>
+        <UserInfo currentUser={props.currentUser} />
+        {
+          props.activeEmergency ?
+            <ActiveEmergency currentUser={props.currentUser} activeEmergency={props.activeEmergency} /> :
+            <button onClick={newEmergency}>New emergency!</button>
+        }
+      </div>
+    );
+  }
+  else {
+    return (
+      <LoginForm />
+    );
+  }
+};
+
+
+
+export default withTracker(() => {
+  Meteor.subscribe('emergencies');
+
+  return {
+    currentUser: Meteor.user(),
+    activeEmergency: Emergencies.findOne({ status: "new" }),
+  };
+})(App);
