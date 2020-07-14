@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data'
 
 import UserPanel from './UserPanel';
@@ -14,9 +14,10 @@ import 'purecss/build/pure.css';
 function App(props) {
 
   const isLoggedIn = !!props.currentUser;
+  const [hideEmergencyLog, setHideEmergencyLog] = useState(false);
 
   const renderEmergencyLog = () => {
-    if (!props.emergencyLog)
+    if (!props.emergencyLog || hideEmergencyLog)
       return;
 
     const ret = props.emergencyLog.map((emergency) => {
@@ -51,7 +52,11 @@ function App(props) {
   if (isLoggedIn) {
     return (
       <div>
-        <UserPanel currentUser={props.currentUser} />
+        <UserPanel
+          currentUser={props.currentUser}
+          hideEmergencyLog={hideEmergencyLog}
+          setHideEmergencyLog={setHideEmergencyLog}
+        />
         {
           props.activeEmergency ?
             <ActiveEmergency currentUser={props.currentUser} activeEmergency={props.activeEmergency} /> :

@@ -27,8 +27,12 @@ body {
 }
 
 .user-text {
-  font-size: large;
+  font-size: 18px;
   line-height: 30px;
   float: left;
-  padding-right: 15px;
+  margin-right: 15px;
+}
+
+.hide-log-checkbox {
+  margin-left: 10px;
 }
