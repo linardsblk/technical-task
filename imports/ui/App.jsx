@@ -1,13 +1,15 @@
 import React, { useRef } from 'react';
 import { withTracker } from 'meteor/react-meteor-data'
 
-import UserInfo from './UserInfo';
+import UserPanel from './UserPanel';
 import LoginForm from './LoginForm';
 import ActiveEmergency from './ActiveEmergency';
 import EmergencyLog from './EmergencyLog';
 import NewEmergencyForm from './NewEmergencyForm';
 
 import Emergencies from '../api/emergencies';
+
+import 'purecss/build/pure.css';
 
 function App(props) {
 
@@ -24,7 +26,7 @@ function App(props) {
     });
 
     return (
-      <table>
+      <table className="pure-table">
         <caption>Recent emergencies</caption>
         <thead>
           <tr>
@@ -40,11 +42,16 @@ function App(props) {
     );
   }
 
+  // Display placeholder message if data has not arrived yet
+  if (!props.emergenciesReady)
+    return "Loading...";
+
+
   // If user is not logged in, show only login form.
   if (isLoggedIn) {
     return (
       <div>
-        <UserInfo currentUser={props.currentUser} />
+        <UserPanel currentUser={props.currentUser} />
         {
           props.activeEmergency ?
             <ActiveEmergency currentUser={props.currentUser} activeEmergency={props.activeEmergency} /> :
@@ -64,11 +71,12 @@ function App(props) {
 
 
 export default withTracker(() => {
-  Meteor.subscribe('emergencies');
+  const emergenciesHandle = Meteor.subscribe('emergencies');
 
   return {
     currentUser: Meteor.user(),
     emergencyLog: Emergencies.find({ status: { $ne: "new" } }, { sort: { updatedAt: -1 } }).fetch(),
     activeEmergency: Emergencies.findOne({ status: "new" }),
+    emergenciesReady: emergenciesHandle.ready(),
   };
 })(App);

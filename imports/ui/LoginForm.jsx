@@ -20,9 +20,8 @@ export default function LoginForm(props) {
         });
     }
 
-    // TODO: add error messages
     return (
-        <form onSubmit={login}>
+        <form onSubmit={login} className="pure-form-stacked">
             <label htmlFor="username">Username</label>
 
             <input
@@ -47,8 +46,8 @@ export default function LoginForm(props) {
                 onChange={(e) => setPassword(e.currentTarget.value)}
             />
 
-            <button type="submit" name="submit">Login</button>
-            <button type="button" onClick={register}>Register</button>
+            <button type="submit" name="submit" className="pure-button pure-button-primary">Login</button>
+            <button type="button" onClick={register} className="pure-button pure-button-secondary">Register</button>
         </form>
     );
 };

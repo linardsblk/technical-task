@@ -11,12 +11,13 @@ export default function ActiveEmergency(props) {
     };
 
     return (
-        <div>
-            <div>{props.activeEmergency.text}</div>
+        <div className="active-emergency">
+            <div className="active-emergency-text">{props.activeEmergency.text}</div>
             {
+                // Emergency creator can cancel, others can respond
                 props.activeEmergency.createdBy === props.currentUser._id ?
-                    <button type="button" onClick={cancelEmergency}>Cancel</button> :
-                    <button type="button" onClick={respondToEmergency}>Respond</button>
+                    <button type="button" className="pure-button" onClick={cancelEmergency}>Cancel</button> :
+                    <button type="button" className="pure-button button-primary" onClick={respondToEmergency}>Respond</button>
             }
         </div>
     );

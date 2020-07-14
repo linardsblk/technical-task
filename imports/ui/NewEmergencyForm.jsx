@@ -16,9 +16,16 @@ export default function NewEmergencyForm(props) {
     }
 
     return (
-        <form>
-            <input type="text" placeholder="Emergency text" ref={emergencyTextInput} />
-            <input type="submit" onClick={createEmergency} value="Create" />
-        </form>
+        <div className="new-emergency-form">
+            <form className="pure-form">
+                <input type="text" placeholder="Emergency text" ref={emergencyTextInput} />
+                <input
+                    type="submit"
+                    onClick={createEmergency}
+                    value="Create"
+                    className="pure-button pure-button-primary"
+                />
+            </form>
+        </div>
     );
 }

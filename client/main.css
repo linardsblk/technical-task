@@ -2,3 +2,33 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.active-emergency {
+    margin: auto;
+    width: 30%;
+    background-color: lightcoral;
+    border-radius: 5px;
+    padding: 20px;  
+    text-align: center;
+}
+
+.active-emergency-text {
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+}
+
+.new-emergency-form {
+    text-align: center;
+}
+
+.pure-table {
+    margin: auto;
+}
+
+.user-text {
+  font-size: large;
+  line-height: 30px;
+  float: left;
+  padding-right: 15px;
+}
